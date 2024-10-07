@@ -1,0 +1,145 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #d3d3d3;
+    margin: 0;
+  }
+  
+  .character {
+    position: relative;
+    width: 40px;
+    height: 90px;
+    animation: walk 1s infinite linear;
+  }
+  
+  /* Tête vue de profil */
+  .head {
+    width: 20px;
+    height: 20px;
+    background-color: #e0ac69;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    border-radius: 20%;
+  }
+  
+  /* Oeil */
+  .eye {
+    width: 4px;
+    height: 4px;
+    background-color: black;
+    position: absolute;
+    top: 7px;
+    left: 14px;
+    border-radius: 50%;
+  }
+  
+  /* Cheveux */
+  .hair {
+    width: 20px;
+    height: 8px;
+    background-color: #3b2f2f;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  /* Corps */
+  .body {
+    width: 15px;
+    height: 23px;
+    background-color: #4a90e2;
+    position: absolute;
+    top: 20px;
+    left: 12.5px;
+  }
+  
+  /* Bras */
+  .left-arm, .right-arm {
+    width: 5px;
+    height: 20px;
+    background-color: #4a90e2;
+    position: absolute;
+    top: 20px;
+  }
+  
+  .left-arm {
+    left: 6px;
+    animation: leftArmMove 1s infinite linear;
+  }
+  
+  .right-arm {
+    right: 6px;
+    animation: rightArmMove 1s infinite linear;
+  }
+  
+  /* Jambes */
+  .left-leg, .right-leg {
+    width: 6px;
+    height: 18px;
+    background-color: #7ac142;
+    position: absolute;
+    top: 43px;
+  }
+  
+  .left-leg {
+    left: 12px;
+    animation: leftLegMove 1s infinite linear;
+  }
+  
+  .right-leg {
+    right: 12px;
+    animation: rightLegMove 1s infinite linear;
+  }
+  
+  /* Pieds (chaussures) */
+  .left-foot, .right-foot {
+    width: 10px;
+    height: 5px;
+    background-color: #000;
+    position: absolute;
+    top: 61px;
+  }
+  
+  .left-foot {
+    left: 12px;
+  }
+  
+  .right-foot {
+    right: 7px;
+  }
+  
+  /* Animation des jambes */
+//   @keyframes leftLegMove {
+//     0% { transform: rotate(10deg); }
+//     50% { transform: rotate(-10deg); }
+//     100% { transform: rotate(10deg); }
+//   }
+  
+//   @keyframes rightLegMove {
+//     0% { transform: rotate(-10deg); }
+//     50% { transform: rotate(10deg); }
+//     100% { transform: rotate(-10deg); }
+//   }
+  
+//   /* Animation des bras */
+//   @keyframes leftArmMove {
+//     0% { transform: rotate(-10deg); }
+//     50% { transform: rotate(10deg); }
+//     100% { transform: rotate(-10deg); }
+//   }
+  
+//   @keyframes rightArmMove {
+//     0% { transform: rotate(10deg); }
+//     50% { transform: rotate(-10deg); }
+//     100% { transform: rotate(10deg); }
+//   }
+  
+//   /* Animation globale du déplacement */
+//   @keyframes walk {
+//     0% { transform: translateX(0); }
+//     100% { transform: translateX(100px); }
+//   }
+  

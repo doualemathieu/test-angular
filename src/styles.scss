@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+    background-color: #274044;
+}
+
+#block-message {
+    background-color: #fbe78a;
+    color : #3d3922;
+    max-width: 400px;
+    padding: 20px;
+    font-family: 'VT323', monospace;
+    border: 1px solid #3d3922;
+    position: absolute
+} 
