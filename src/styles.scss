@@ -6,9 +6,11 @@ html, body {
 #block-message {
     background-color: #fbe78a;
     color : #3d3922;
-    max-width: 400px;
+    width: 200px;
+    height: 200px;
     padding: 20px;
     font-family: 'VT323', monospace;
     border: 1px solid #3d3922;
-    position: absolute
+    position: absolute;
+    margin: 0px;
 } 

@@ -1,4 +1,7 @@
-<app-character></app-character>
-<app-block-experience></app-block-experience>
+<app-character [blocks]="blocks"></app-character>
+<div *ngFor="let block of blocks">
+    <app-block-experience [position]="block.position"></app-block-experience>
+</div>
+
 
 

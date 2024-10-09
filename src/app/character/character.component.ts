@@ -1,7 +1,9 @@
 import { NgStyle } from '@angular/common';
-import { Component, HostListener, inject, signal } from '@angular/core';
+import { Component, HostListener, inject, Input, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { changePositionCharacter } from '../store/character/character.actions';
+import { Position } from '../position';
+import { Block } from '../block';
 
 export const positionCharacter = signal({top : 100, left : 100});
 
@@ -13,18 +15,61 @@ export const positionCharacter = signal({top : 100, left : 100});
   styleUrl: './character.component.scss'
 })
 export class CharacterComponent {
+  @Input() blocks: Block[] = [{position : { top : 0, left : 0}}];
   private store = inject(Store)
-  top = 100;  // Position initiale en haut
-  left = 100; // Position initiale à gauche
-  stepSize = 10; // Pas de déplacement
+  top = 100;
+  left = 100;
+  stepSize = 10;
   deplacement = "null";
 
-
-  // Écouteur des touches du clavier
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
     this.deplacement = event.key;
-    console.log('event.key', event.key === ' ')
+    this.isPossibleToMove(event) ? this.toMove(event) : null;
+  }
+
+  isPossibleToMove = (event: any) => {
+    const padding = 0;
+    const widthCaharacter = 40;
+    const heightCaharacter = 67;
+    const heightBlock = 242;
+    const widthBlock = 242;
+    let isPossible = true;
+    this.blocks.forEach(block => {
+      if ( event.key === 'ArrowRight' && 
+        (this.left + this.stepSize + padding + widthCaharacter) > block.position.left 
+        && (this.left + this.stepSize + padding + widthCaharacter) < block.position.left + widthBlock
+        && this.top + heightCaharacter > block.position.top && this.top < (block.position.top + heightBlock)
+      ) {
+        isPossible = false
+      }
+
+      if ( event.key === 'ArrowLeft' && (this.left - this.stepSize ) > block.position.left + padding
+      && (this.left - this.stepSize ) < block.position.left + widthBlock + padding
+      && this.top + heightCaharacter > block.position.top && this.top < (block.position.top + heightBlock)
+      ) {
+        isPossible = false
+      }
+
+      if ( event.key === 'ArrowDown' && 
+      this.top + this.stepSize + padding + heightCaharacter > block.position.top 
+      && (this.top + this.stepSize + padding + heightCaharacter) < block.position.top + heightBlock
+        && this.left + widthCaharacter > block.position.left && this.left < (block.position.left + widthBlock)
+      ) {
+        isPossible = false
+      }
+
+      if ( event.key === 'ArrowUp' && (this.top - this.stepSize ) > block.position.top + padding
+      && (this.top - this.stepSize ) < block.position.top + heightBlock
+      && this.left + widthCaharacter > block.position.left && this.left < (block.position.left + widthBlock)
+      ) {
+        isPossible = false
+      }
+    })
+    return isPossible
+  } 
+
+  toMove = (event : any) => {
     switch (event.key) {
       case 'ArrowUp':
         this.top -= this.stepSize;
@@ -38,12 +83,9 @@ export class CharacterComponent {
       case 'ArrowRight':
         this.left += this.stepSize;
         break;
-      case ' ':
-        this.top -= 20;
     }
 
     this.store.dispatch(changePositionCharacter({character : { position : {top : this.top, left : this.left} }}));
-    
   }
   
 }
