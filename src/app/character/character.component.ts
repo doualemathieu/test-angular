@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { changePositionCharacter } from '../store/character/character.actions';
 import { Position } from '../position';
 import { Block } from '../block';
+import { selectBlock } from '../store/block/block.actions';
 
 export const positionCharacter = signal({top : 100, left : 100});
 
@@ -15,10 +16,10 @@ export const positionCharacter = signal({top : 100, left : 100});
   styleUrl: './character.component.scss'
 })
 export class CharacterComponent {
-  @Input() blocks: Block[] = [{position : { top : 0, left : 0}}];
+  @Input() blocks: Block[] = [{position : { top : 0, left : 0}, selected : false, index: 0}];
   private store = inject(Store)
-  top = 100;
-  left = 100;
+  top = 320;
+  left = 440;
   stepSize = 10;
   deplacement = "null";
 
@@ -32,8 +33,8 @@ export class CharacterComponent {
     const padding = 0;
     const widthCaharacter = 40;
     const heightCaharacter = 67;
-    const heightBlock = 242;
-    const widthBlock = 242;
+    const heightBlock = 222;
+    const widthBlock = 222;
     let isPossible = true;
     this.blocks.forEach(block => {
       if ( event.key === 'ArrowRight' && 
@@ -42,6 +43,7 @@ export class CharacterComponent {
         && this.top + heightCaharacter > block.position.top && this.top < (block.position.top + heightBlock)
       ) {
         isPossible = false
+        this.store.dispatch(selectBlock({block : {...block, selected : true}}));
       }
 
       if ( event.key === 'ArrowLeft' && (this.left - this.stepSize ) > block.position.left + padding
@@ -49,6 +51,7 @@ export class CharacterComponent {
       && this.top + heightCaharacter > block.position.top && this.top < (block.position.top + heightBlock)
       ) {
         isPossible = false
+        this.store.dispatch(selectBlock({block : {...block, selected : true}}));
       }
 
       if ( event.key === 'ArrowDown' && 
@@ -57,6 +60,7 @@ export class CharacterComponent {
         && this.left + widthCaharacter > block.position.left && this.left < (block.position.left + widthBlock)
       ) {
         isPossible = false
+        this.store.dispatch(selectBlock({block : {...block, selected : true}}));
       }
 
       if ( event.key === 'ArrowUp' && (this.top - this.stepSize ) > block.position.top + padding
@@ -64,12 +68,14 @@ export class CharacterComponent {
       && this.left + widthCaharacter > block.position.left && this.left < (block.position.left + widthBlock)
       ) {
         isPossible = false
+        this.store.dispatch(selectBlock({block : {...block, selected : true}}));
       }
     })
     return isPossible
   } 
 
   toMove = (event : any) => {
+    this.store.dispatch(selectBlock({block : {...this.blocks[0], index:0, selected : false}}));
     switch (event.key) {
       case 'ArrowUp':
         this.top -= this.stepSize;
@@ -84,6 +90,7 @@ export class CharacterComponent {
         this.left += this.stepSize;
         break;
     }
+
 
     this.store.dispatch(changePositionCharacter({character : { position : {top : this.top, left : this.left} }}));
   }

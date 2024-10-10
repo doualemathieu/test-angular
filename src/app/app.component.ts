@@ -14,9 +14,10 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   title = 'test-angular';
   blocks = [
-    { position : { top : 350, left : 600}},
-    { position : { top : 10, left : 400}},
-    { position : { top : 320, left : 100}}
+    { index : 4, position : { top : 450, left : 600}, selected : false},
+    { index : 1, position : { top : 10, left : 100}, selected : false},
+    { index : 2, position : { top : 10, left : 600}, selected : false},
+    { index : 3, position : { top : 450, left : 100}, selected : false}
   ]
 
 }
